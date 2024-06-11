@@ -3,16 +3,12 @@
 
 using namespace std;
 
-
-
 /*
-
 
 Graph: 
 adj.size()=2 , el primer argumento es la arista con la que esta conectada y el segundo parametro es el peso de esa arista
 
 Ejemplo:
-
 
 vector<vector<int>>adj[]=
 {
