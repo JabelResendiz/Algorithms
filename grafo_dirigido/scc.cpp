@@ -2,10 +2,12 @@
 
 using namespace std;
 
+//O(V+E)
+
 
 vector<bool> visited;
-vector<int>componente_conexa;
-stack<int> stack_vertex;
+vector<int>componente_conexa; // al salida , los elemetnos y sus componentes
+stack<int> stack_vertex; // una pila para ordenar sus f[u]
 
 void dfs(int u,vector<int> adj[],int cc,bool b){
 
