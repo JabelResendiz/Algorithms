@@ -19,6 +19,8 @@ vector<vector<int>>adj[]=
 
 */
 
+// O(ElogV) y si el grafo es denso entonces O(V^2) no implemenatada aqui 
+
 class Prim
 {
 public:

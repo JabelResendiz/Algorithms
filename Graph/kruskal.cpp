@@ -5,6 +5,9 @@
 #include <vector>
 using namespace std;
 
+
+// O(ElogV) si es grafo es denso entonces O(V^2LogV)
+
 struct Edge
 {
     int u, v, weight;

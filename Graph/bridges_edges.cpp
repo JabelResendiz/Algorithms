@@ -3,24 +3,26 @@
 #define vi vector<int>
 using namespace std;
 
+// O(V+E)
+
 vector<bool>visited;
 vi phi;
 vi d;
 vi low;
 set<pair<int,int>> bridges;
+int time_used;
 
-
-void dfs_visit(vi adj[],int u,int time){
+void dfs_visit(vi adj[],int u){
 
     visited[u]=true;
-    time+=1;
-    d[u]=time;
+    time_used+=1;
+    d[u]=time_used;
     low[u]=d[u];
 
     for(int i=0;i<adj[u].size();i++){
         if(!visited[adj[u][i]]){
             phi[adj[u][i]]=u;
-            dfs_visit(adj,adj[u][i],time);
+            dfs_visit(adj,adj[u][i]);
             low[u]=min(low[u],low[adj[u][i]]);
 
             
@@ -43,10 +45,11 @@ void bridges_edges(int V,vi adj[]){
     d.assign(V,-1);
     low.assign(V,-1);
     phi.assign(V,-1);
+    time_used=-1;
     
     for(int i=0;i<V;i++){
         if(!visited[i]){
-            dfs_visit(adj,i,-1);
+            dfs_visit(adj,i);
         }
     }
     

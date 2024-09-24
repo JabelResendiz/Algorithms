@@ -5,7 +5,7 @@
 #define vi vector<int>
 #define vii vector<vector<int>>
 
-
+// arcos de costo negativo pero no ciclos de costo negativo alcanzables desde el origen s
 // O(E*V) y en el peor de los casos cuando E=O(V^2) entonces el algortimo es V^3
 
 
