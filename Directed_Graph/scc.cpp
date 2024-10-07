@@ -4,7 +4,7 @@ using namespace std;
 
 //O(V+E)
 
-
+int number_componentes;
 vector<bool> visited;
 vector<int>componente_conexa; // al salida , los elemetnos y sus componentes
 stack<int> stack_vertex; // una pila para ordenar sus f[u]
@@ -62,6 +62,24 @@ void strongly_connected_components(int n, vector<int> adj[]){
     }
     cout<<endl;
 }
+
+vector<bool>visited2;
+stack<int> s;
+void dfs_visit_topologicalSort(vector<set<int>>adj2,int u){
+
+    
+    visited2[u]=true;
+    
+    for(int v: adj2[u]){
+        
+        if(!visited2[v]){
+            dfs_visit_topologicalSort(adj2,v);
+        }
+    }
+
+    s.push(u);
+}
+// grafo de las componentes fuertemente conexas en un DAG , osea con su orden topologico
 int main(){
 
     vector<int> adj[]={
@@ -69,6 +87,36 @@ int main(){
     };
     
     strongly_connected_components(8,adj);
+    for(int i=0;i<componente_conexa.size();i++){
+        number_componentes=max(number_componentes,componente_conexa[i]);
+    }
+    number_componentes++;
 
+    vector<set<int>> adj2(number_componentes);
+    
+    for(int i=0;i<8;i++){
+        
+        for(int j=0;j<adj[i].size();j++){
+            
+            if(componente_conexa[i]!=componente_conexa[adj[i][j]]){
+                
+                adj2[componente_conexa[i]].insert(componente_conexa[adj[i][j]]);
+            }
+        }
+    }
+    
+    vector<int> topological_order;
+    visited2.assign(number_componentes,false);
+    
+    dfs_visit_topologicalSort(adj2,0);
+    
+    while(!s.empty()){
+        topological_order.push_back(s.top());
+        s.pop();
+    }
+    
+    for(auto c:topological_order){
+        cout<<c<<" ";
+    }
     
 }

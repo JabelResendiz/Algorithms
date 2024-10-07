@@ -26,7 +26,7 @@ class Prim
 public:
     int prim(int n, vector<vector<int>> adj[])
     {
-        priority_queue<pair<int, int>> q;
+        priority_queue<pair<int, int>> q; // la prioridad es la arista de menor peso
 
         vector<bool> mask;
         mask.assign(n, false);
@@ -35,6 +35,7 @@ public:
         int cost = 0;
 
         for (int i = 0; i < adj[0].size(); i++)
+        //se ubican dentro de la cola los elementos que son adyacentes
         {
             q.push({-adj[0][i][1], adj[0][i][0]});
         }
