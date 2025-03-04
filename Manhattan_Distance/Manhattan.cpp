@@ -6,8 +6,10 @@ using namespace std;
 
 // d(p,q)= |xp - xq| + |yp - yq|
 // max [(xp + (-xq)) + (yp + (-yq))] = max (xp + yp) + max(-xq-yq)
-// who
+// maximum distance between two points in a d-dimensional space
 
+//vector<vector<int>> p - n points of d-dimensional
+// O(n*d*2^d)
 
 long long FarthestPairManhattanDistance(int d,int n, vector<vector<int>>p)
 {
@@ -32,5 +34,6 @@ long long FarthestPairManhattanDistance(int d,int n, vector<vector<int>>p)
 
 int main()
 {
+    
 
 }
