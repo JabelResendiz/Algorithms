@@ -33,6 +33,9 @@ vector<tuple<long long, int, int>> manhattan_mst_edges(vector<point> ps) {
         });
         map<int, int, greater<int>> active; // (xs, id)
         for (auto i : ids) {
+            // lower_bound(ps[i].x) busca el primer elemento en el mapa cuyo valor de x es mayor o igual ps[i].x
+            // si no existe devuelve el iterador a active.end()
+            // se borra el elemento apuntado por el iterador y luego se incrementa para apuntar al siguiente
             for (auto it = active.lower_bound(ps[i].x); it != active.end();
             active.erase(it++)) {
                 int j = it->second;
@@ -53,4 +56,23 @@ vector<tuple<long long, int, int>> manhattan_mst_edges(vector<point> ps) {
 int main()
 {
     
+    vector<point>ps = {
+
+        {2,3},
+        {5,2},
+        {1,1},
+        {4,4}
+    };
+
+    auto edges= manhattan_mst_edges(ps);
+
+    for (auto& edge : edges) {
+        long long weight = std::get<0>(edge);
+        int u = std::get<1>(edge);
+        int v = std::get<2>(edge);
+        std::cout << "Edge: (" << weight << ", " << u << ", " << v << ")\n";
+    }
+
+    return 0;
+
 }
