@@ -65,100 +65,60 @@ void sqrt_descomposition()
 //// MO's Algorithm
 //// Complxty: O((N+Q) sqrt(N))
 
-const int MAX_N = 100000;
-int a[MAX_N];
-int current_sum = 0;
-int block_size;
 
-void add(int idx)
+#include <bits/stdc++.h>
+
+using namespace std;
+
+const int maxn = 1e5+10;
+const int maxq = 1e5+10;
+const int bucket = 320;
+
+struct Query {
+	int l, r, bloco, id;
+} q[maxq];
+
+int ans[maxn], num[maxn], aux;
+
+// arbitrary functions
+void add(int x) {}
+
+void rem(int x) {}
+
+bool comp(Query a, Query b)
 {
-    current_sum += a[idx];
+	if (a.bloco == b.bloco) return a.r < b.r;
+	return a.bloco < b.bloco;
 }
 
-void remove(int idx)
+int main(void)
 {
-    current_sum -= a[idx];
-}
+	int n, m;
+	cin >> n >> m;
 
-int get_answer()
-{
-    return current_sum;
-}
+	for (int i = 0; i < n; i++)
+		cin >> num[i];
 
-struct Query
-{
-    int l, r, idx;
-    bool operator<(Query other) const
-    {
-        return make_pair(l / block_size, r) <
-               make_pair(other.l / block_size, other.r);
-    }
-};
+	for (int i = 0; i < m; i++)
+	{
+		cin >> q[i].l >> q[i].r;
 
-vector<int> mo_s_algorithm(vector<Query> queries)
-{
-    vector<int> answers(queries.size());
-    sort(queries.begin(), queries.end());
+		q[i].id = i, q[i].bloco = q[i].l/bucket;
+	}
 
-    // TODO: initialize data structure
+	sort(q, q+m, comp);
 
-    int cur_l = 0;
-    int cur_r = -1;
-    // invariant: data structure will always reflect the range [cur_l, cur_r]
-    for (Query q : queries)
-    {
-        while (cur_l > q.l)
-        {
-            cur_l--;
-            add(cur_l);
-        }
-        while (cur_r < q.r)
-        {
-            cur_r++;
-            add(cur_r);
-        }
-        while (cur_l < q.l)
-        {
-            remove(cur_l);
-            cur_l++;
-        }
-        while (cur_r > q.r)
-        {
-            remove(cur_r);
-            cur_r--;
-        }
-        answers[q.idx] = get_answer();
-    }
-    return answers;
-}
+	int l = 1, r = 1;
 
+	for (int i = 0; i < m; i++)
+	{
+		int ql = q[i].l, qr = q[i].r;
 
+		while (r > qr) rem(r--);
+		while (r < qr) add(++r);
+		while (l > ql) add(--l);
+		while (l < ql) rem(l++);
 
-int main()
-{
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-
-    int n, q;
-    cin >> n >> q;
-
-    for (int i = 0; i < n; ++i)
-        cin >> a[i];
-
-    block_size = sqrt(n) + 1;
-    vector<Query> queries(q);
-
-    for (int i = 0; i < q; ++i)
-    {
-        cin >> queries[i].l >> queries[i].r;
-        queries[i].l--, queries[i].r--;
-        queries[i].idx = i;
-    }
-
-    vector<int> answers = mo_s_algorithm(queries);
-
-    for (int ans : answers)
-        cout << ans << '\n';
-
-    return 0;
+		ans[q[i].id] = aux;
+	}
 }
