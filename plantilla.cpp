@@ -3,9 +3,12 @@
 using namespace std;
 
 typedef long long ll;
-#define vi vector<int>
-#define vii vector<vi>
-#define vll vector<ll>
+typedef pair<int,int> ii;
+typedef vector<int> vi;
+typedef vector<vi> vvi;
+typedef vector<ll> vll;
+typedef vector<ii> vii;
+
 #define all(x) (x).begin(), (x).end()
 #define forn(i,a,n) for (int i=int(a);i<int(n);i++)
 
