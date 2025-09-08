@@ -15,8 +15,8 @@ vll factorial(MAXN + 1);
 vll inverse_factorial(MAXN + 1);
 
 // Exponenciación rápida para inverso modular
-long long power(long long a, long long b, long long m) {
-    long long res = 1;
+ll power(ll a, ll b, ll m) {
+    ll res = 1;
     while (b > 0) {
         if (b % 2 == 1) {
             res = res * a % m;
@@ -45,7 +45,7 @@ void precompute()
     }
 }
 
-long long binomial(int n, int k)
+ll binomial(int n, int k)
 {
     if (k > n || k < 0)
         return 0;
