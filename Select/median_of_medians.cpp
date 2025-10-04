@@ -1,3 +1,7 @@
+
+// encontrar el elemento en la posicion i si el array S estuviese ordenado
+// encontrar el i-esimo elemento mas pequeño de S(indice 0-based)
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -50,13 +54,81 @@ void output(T&x, Args&...args)
 
 //----------------------------------------------------------------------
 
-void solve()
+int getMedian(vi &v)
 {
-
-    
-
+    sort(all(v));
+    return v[v.size()/2];
 }
 
+
+int MedianOfMedians(vi &S)
+{
+    // dividir en grupos de 5
+    int n= S.size();
+
+    if(n<=5) return getMedian(S);
+
+    vi medians;
+
+
+    for(int i=0;i< n;i +=5)
+    {
+        vi group;
+        for(int j=i;j< min(i+5,n);j++)
+        {
+            group.push_back(S[j]);
+        }
+
+        medians.push_back(getMedian(group));
+    }
+
+    return MedianOfMedians(medians);
+}
+
+
+
+int Select(vi &S, int i)
+{
+    if(S.size() == 1)return S[0];
+
+    int x = MedianOfMedians(S);
+
+    vi less,equal,greater;
+
+    for(int val:S)
+    {
+        if(val < x) less.push_back(val);
+        else if(val == x) equal.push_back(val);
+        else greater.push_back(val);
+    }
+    int k= equal.size() + less.size();
+
+    if(k == i)
+        return x;
+        
+    if(k > i)
+        return Select(less,i);
+
+    return Select(greater,i - k);
+}
+
+void solve(){
+
+    int n,q;
+    cin>> n >> q;
+
+    vi a(n);
+
+    forn(i,0,n)cin>>a[i];
+
+    while(q--)
+    {
+        int p;
+        cin >> p;
+
+        cout <<Select(a,p)<<endl;
+    }
+}
 
 int main()
 {
