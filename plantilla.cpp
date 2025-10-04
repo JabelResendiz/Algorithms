@@ -22,13 +22,13 @@ void input(T &x, Args&... args)
     input(args...);
 }
 
-#define COUT(...) ouput(__VA_ARGS__)
+#define COUT(...) output(__VA_ARGS__)
 
 template<typename T>
-void output(T&x) {cout << x <<endl;}
+void output(const T&x) {cout << x <<endl;}
 
 template<typename T, typename... Args>
-void output(T&x, Args&...args)
+void output(const T&x, const Args&...args)
 {
     cout << x << " ";
     output(args...);

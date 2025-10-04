@@ -26,13 +26,13 @@ void input(T &x, Args&... args)
     input(args...);
 }
 
-#define COUT(...) ouput(__VA_ARGS__)
+#define COUT(...) output(__VA_ARGS__)
 
 template<typename T>
-void output(T&x) {cout << x <<endl;}
+void output(const T&x) {cout << x <<endl;}
 
 template<typename T, typename... Args>
-void output(T&x, Args&...args)
+void output(const T&x, const Args&...args)
 {
     cout << x << " ";
     output(args...);
@@ -115,18 +115,18 @@ int Select(vi &S, int i)
 void solve(){
 
     int n,q;
-    cin>> n >> q;
+    CIN(n,q);
 
     vi a(n);
 
-    forn(i,0,n)cin>>a[i];
+    forn(i,0,n)CIN(a[i]);
 
     while(q--)
     {
         int p;
-        cin >> p;
+        CIN(p);
 
-        cout <<Select(a,p)<<endl;
+        COUT(Select(a,p));
     }
 }
 
@@ -135,7 +135,7 @@ int main()
 
     ios::sync_with_stdio(false);
     int t;
-    cin >>t;
+    CIN(t);
 
     while(t--) solve();
     
